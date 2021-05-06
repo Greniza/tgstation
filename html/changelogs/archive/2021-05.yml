@@ -152,10 +152,10 @@
   - rscadd: Monkey ai consumes food once in a while according to their desire.
 2021-05-06:
   ATHATH:
-  - bugfix: Killer tomatoes no longer require the liquid contents trait to have a
-      chance to self-animate when picked up without proper protection.
   - bugfix: Cloth golems and podpeople can now strip people again.
   - bugfix: Bananium golems are considered to be advanced tool users again.
+  - bugfix: Killer tomatoes no longer require the liquid contents trait to have a
+      chance to self-animate when picked up without proper protection.
   ArcaneMusic:
   - imageadd: Exploration Drone's scanning dishes have less SOUL and more STYLE.
   Celotajs:
@@ -163,10 +163,10 @@
       you.
   - code_imp: The license details in the TGUI changelog are now correct.
   LemonInTheDark:
-  - bugfix: h2o jetpacks will no longer leave trails of water in space
   - code_imp: Td should spike slightly less, assuming harddels actually go down
   - code_imp: You feel a great disturbance in the force, mob code has changed. Please
       report any odd targeting behavior on the issue tracker
+  - bugfix: h2o jetpacks will no longer leave trails of water in space
   Seris02:
   - bugfix: many of the toggle preferences in preferences_toggles.dm going into the
       unsorted chat log
