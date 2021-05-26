@@ -658,3 +658,12 @@
       less confusing by adding balloon messages describing what is happening. Changed
       the firelock examine text to explain that right-click opens it permanently and
       left-click opens it temporarily
+2021-05-26:
+  RandomGamer123:
+  - rscdel: Removed the toggle intent selection style preference
+  dragomagol:
+  - qol: door remotes now use balloon alerts instead of chat messages
+  ninjanomnom:
+  - bugfix: Fixes the jumpskirt in hand icon displaying an error
+  vincentiusvin:
+  - bugfix: Fixed multiple piping mistakes in Delta, Meta, and Icebox.
