@@ -249,3 +249,7 @@
   - admin: Opening and closing job slots is now logged.
   Thunder12345:
   - imageadd: Three new hair gradients, a pair of shorter fades and a spiky wave.
+  Watermelon914:
+  - bugfix: Fixed a runtime with the comparison components.
+  vincentiusvin:
+  - bugfix: stimformation should not be called if no gas is actually being formed.
