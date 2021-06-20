@@ -412,3 +412,6 @@
       back into its natural maintenance habitat
   Timberpoes:
   - rscdel: Removed the fake error texture floor tiles.
+2021-06-20:
+  SmArtKar:
+  - bugfix: Luminescents once again use slime extracts
