@@ -1,0 +1,19 @@
+2021-07-01:
+  Arkatos:
+  - bugfix: Fixed a case where a relic war hammer was not able to do kneejerk action.
+  - bugfix: Fixed a case where a radial menu for the null rod reskin variant selection
+      was showing one duplicate option.
+  Wayland-Smithy:
+  - bugfix: Fixed an infinite loop bug with portal teleports. The cake is a stack
+      overflow.
+  - bugfix: Fixed portals layer so they appear over most other objects.
+  - bugfix: Fixed hand teleporter portals moving in zero gravity.
+  - qol: Portals on dense objects no longer require clicking to enter and can be walked
+      into.
+  - qol: Portals you are standing on may be entered by clicking even with a tool in
+      hand.
+  - code_imp: Removed an unused teleport arg that may cause issues with new portal
+      code.
+  bobbahbrown:
+  - server: Added the $reset directive to reset a configuration entry's values to
+      its default
