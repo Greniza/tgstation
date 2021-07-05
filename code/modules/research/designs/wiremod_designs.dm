@@ -168,10 +168,20 @@
 	id = "comp_combiner"
 	build_path = /obj/item/circuit_component/combiner
 
+/datum/design/component/split
+	name = "Split Component"
+	id = "comp_split"
+	build_path = /obj/item/circuit_component/split
+
 /datum/design/component/pull
 	name = "Pull Component"
 	id = "comp_pull"
 	build_path = /obj/item/circuit_component/pull
+
+/datum/design/component/soundemitter
+	name = "Sound Emitter Component"
+	id = "comp_soundemitter"
+	build_path = /obj/item/circuit_component/soundemitter
 
 /datum/design/component/mmi
 	name = "MMI Component"
@@ -202,6 +212,16 @@
 	name = "Select Query Component"
 	id = "comp_select_query"
 	build_path = /obj/item/circuit_component/select
+
+/datum/design/component/tempsensor
+	name = "Temperature Sensor"
+	id = "comp_tempsensor"
+	build_path = /obj/item/circuit_component/tempsensor
+
+/datum/design/component/pressuresensor
+	name = "Pressure Sensor"
+	id = "comp_pressuresensor"
+	build_path = /obj/item/circuit_component/pressuresensor
 
 /datum/design/compact_remote_shell
 	name = "Compact Remote Shell"

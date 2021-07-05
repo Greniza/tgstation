@@ -7,12 +7,13 @@
 // Port types. Determines what the port can connect to
 
 /// Can accept any datatype. Only works for inputs, output types will runtime.
-#define PORT_TYPE_ANY null
+#define PORT_TYPE_ANY "any"
 
 // Fundamental datatypes
 /// String datatype
 #define PORT_TYPE_STRING "string"
-#define PORT_MAX_STRING_LENGTH 500
+#define PORT_MAX_STRING_LENGTH 5000
+#define PORT_MAX_STRING_DISPLAY 100
 /// Number datatype
 #define PORT_TYPE_NUMBER "number"
 /// Signal datatype
@@ -25,8 +26,6 @@
 // Other datatypes
 /// Atom datatype
 #define PORT_TYPE_ATOM "entity"
-/// Any datatype (USED ONLY FOR DISPLAY, DO NOT USE)
-#define COMP_TYPE_ANY "any"
 
 
 /// The maximum range between a port and an atom
@@ -87,6 +86,16 @@
 // Radio component
 #define COMP_RADIO_PUBLIC "public"
 #define COMP_RADIO_PRIVATE "private"
+
+// Sound component
+#define COMP_SOUND_BUZZ "Buzz"
+#define COMP_SOUND_BUZZ_TWO "Buzz Twice"
+#define COMP_SOUND_CHIME "Chime"
+#define COMP_SOUND_HONK "Honk"
+#define COMP_SOUND_PING "Ping"
+#define COMP_SOUND_SAD "Sad Trombone"
+#define COMP_SOUND_WARN "Warn"
+#define COMP_SOUND_SLOWCLAP "Slow Clap"
 
 // Security Arrest Console
 #define COMP_STATE_ARREST "*Arrest*"
