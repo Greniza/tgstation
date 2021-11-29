@@ -6,6 +6,7 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
+	exp_granted_type = EXP_TYPE_CREW
 	var/cooks = 0 //Counts cooks amount
 	/// List of areas that are counted as the kitchen for the purposes of CQC. Defaults to just the kitchen. Mapping configs can and should override this.
 	var/list/kitchen_areas = list(/area/service/kitchen)
@@ -20,11 +21,13 @@
 
 	display_order = JOB_DISPLAY_ORDER_COOK
 	bounty_types = CIV_JOB_CHEF
-	departments = DEPARTMENT_SERVICE
+	departments_list = list(
+		/datum/job_department/service,
+		)
 
 	family_heirlooms = list(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/chefhat)
-
-	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+	rpg_title = "Tavern Chef"
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE | JOB_REOPEN_ON_ROUNDSTART_LOSS | JOB_ASSIGN_QUIRKS
 
 
 /datum/job/cook/New()
@@ -63,8 +66,8 @@
 		/obj/item/reagent_containers/food/condiment/rice = 20,
 		/obj/item/reagent_containers/food/condiment/enzyme = 15,
 		/obj/item/reagent_containers/food/condiment/soymilk = 15,
-		/obj/item/kitchen/knife = 4,
-		/obj/item/kitchen/knife/butcher = 2
+		/obj/item/knife/kitchen = 4,
+		/obj/item/knife/butcher = 2
 	)
 
 
@@ -83,19 +86,19 @@
 	name = "Cook"
 	jobtype = /datum/job/cook
 
-	belt = /obj/item/pda/cook
-	ears = /obj/item/radio/headset/headset_srv
+	id_trim = /datum/id_trim/job/cook
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/toggle/chef
+	backpack_contents = list(
+		/obj/item/choice_beacon/ingredient = 1,
+		/obj/item/sharpener = 1,
+	)
+	belt = /obj/item/pda/cook
+	ears = /obj/item/radio/headset/headset_srv
 	head = /obj/item/clothing/head/chefhat
 	mask = /obj/item/clothing/mask/fakemoustache/italian
-	backpack_contents = list(
-		/obj/item/sharpener = 1,
-		/obj/item/choice_beacon/ingredient = 1
-	)
-	skillchips = list(/obj/item/skillchip/job/chef)
 
-	id_trim = /datum/id_trim/job/cook
+	skillchips = list(/obj/item/skillchip/job/chef)
 
 /datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

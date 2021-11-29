@@ -12,11 +12,12 @@
 /turf/open/floor/mineral
 	name = "mineral floor"
 	icon_state = ""
+	material_flags = MATERIAL_EFFECTS
 	var/list/icons
 	tiled_dirt = FALSE
 
 
-/turf/open/floor/mineral/Initialize()
+/turf/open/floor/mineral/Initialize(mapload)
 	. = ..()
 	icons = typelist("icons", icons)
 
@@ -200,6 +201,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/bananium
 	icons = list("bananium","bananium_dam")
 	custom_materials = list(/datum/material/bananium = 500)
+	material_flags = NONE //The slippery comp makes it unpractical for good clown decor. The custom mat one should still slip.
 	var/sound_cooldown = 0
 
 /turf/open/floor/mineral/bananium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -284,7 +286,13 @@
 	if(!active)
 		if(world.time > last_event+15)
 			active = TRUE
-			radiation_pulse(src, 10)
+			radiation_pulse(
+				src,
+				max_range = 1,
+				threshold = RAD_VERY_LIGHT_INSULATION,
+				chance = (URANIUM_IRRADIATION_CHANCE / 3),
+				minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+			)
 			for(var/turf/open/floor/mineral/uranium/T in orange(1,src))
 				T.radiate()
 			last_event = world.time
@@ -300,7 +308,7 @@
 	baseturfs = /turf/open/floor/plating/abductor2
 	custom_materials = list(/datum/material/alloy/alien = 500)
 
-/turf/open/floor/mineral/abductor/Initialize()
+/turf/open/floor/mineral/abductor/Initialize(mapload)
 	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
 

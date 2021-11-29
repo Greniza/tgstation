@@ -30,16 +30,15 @@
 
 	var/obj/machinery/computer/crew/attached_console
 
-/obj/item/circuit_component/medical_console_data/Initialize()
-	. = ..()
+/obj/item/circuit_component/medical_console_data/populate_ports()
 	records = add_output_port("Crew Monitoring Data", PORT_TYPE_TABLE)
 
-/obj/item/circuit_component/medical_console_data/register_usb_parent(atom/movable/parent)
+/obj/item/circuit_component/medical_console_data/register_usb_parent(atom/movable/shell)
 	. = ..()
-	if(istype(parent, /obj/machinery/computer/crew))
-		attached_console = parent
+	if(istype(shell, /obj/machinery/computer/crew))
+		attached_console = shell
 
-/obj/item/circuit_component/medical_console_data/unregister_usb_parent(atom/movable/parent)
+/obj/item/circuit_component/medical_console_data/unregister_usb_parent(atom/movable/shell)
 	attached_console = null
 	return ..()
 
@@ -58,9 +57,6 @@
 
 
 /obj/item/circuit_component/medical_console_data/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!attached_console || !GLOB.crewmonitor)
 		return
@@ -235,7 +231,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		if (id_card)
 			entry["name"] = id_card.registered_name
 			entry["assignment"] = id_card.assignment
-			entry["ijob"] = jobs[id_card.assignment]
+			var/trim_assignment = id_card.get_trim_assignment()
+			if (jobs[trim_assignment] != null)
+				entry["ijob"] = jobs[trim_assignment]
 
 		// Binary living/dead status
 		if (sensor_mode >= SENSOR_LIVING)

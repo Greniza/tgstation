@@ -169,7 +169,7 @@
 	var/status_flags = CANSTUN|CANKNOCKDOWN|CANUNCONSCIOUS|CANPUSH
 
 	/// Can they interact with station electronics
-	var/has_unlimited_silicon_privilege = 0
+	var/has_unlimited_silicon_privilege = FALSE
 
 	///Used by admins to possess objects. All mobs should have this var
 	var/obj/control_object
@@ -227,3 +227,5 @@
 
 	/// A mock client, provided by tests and friends
 	var/datum/client_interface/mock_client
+
+	var/interaction_range = 1 //how far a mob has to be to interact with something, defaulted to 1 tile

@@ -19,18 +19,18 @@
 		return
 	if(can_buckle && has_buckled_mobs())
 		if(buckled_mobs.len > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sortNames(buckled_mobs)
+			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1],user))
 				return TRUE
 
-/atom/movable/attackby(obj/item/W, mob/user, params)
-	if(!can_buckle || !istype(W, /obj/item/riding_offhand) || !user.Adjacent(src))
+/atom/movable/attackby(obj/item/attacking_item, mob/user, params)
+	if(!can_buckle || !istype(attacking_item, /obj/item/riding_offhand) || !user.Adjacent(src))
 		return ..()
 
-	var/obj/item/riding_offhand/riding_item = W
+	var/obj/item/riding_offhand/riding_item = attacking_item
 	var/mob/living/carried_mob = riding_item.rider
 	if(carried_mob == user) //Piggyback user.
 		return
@@ -45,7 +45,7 @@
 		return
 	if(Adjacent(user) && can_buckle && has_buckled_mobs())
 		if(buckled_mobs.len > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sortNames(buckled_mobs)
+			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
 			return user_unbuckle_mob(unbuckled,user)
 		else
 			return user_unbuckle_mob(buckled_mobs[1], user)
@@ -85,7 +85,7 @@
  * buckle_mob_flags- Used for riding cyborgs and humans if we need to reserve an arm or two on either the rider or the ridden mob.
  * ignore_self - If set to TRUE, this will not do a check to see if the user can move into the turf of the mob and will just automatically mount them.
  */
-/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE, ignore_self = FALSE)
+/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
 	if(!buckled_mobs)
 		buckled_mobs = list()
 
@@ -106,24 +106,17 @@
 			var/mob/living/L = M.pulledby
 			L.reset_pull_offsets(M, TRUE)
 
-	var/can_move = FALSE
-	if (ignore_self || CanPass(M, get_dir(loc, M)))
-		can_move = TRUE
-
 	if(anchored)
 		ADD_TRAIT(M, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
 	if(!length(buckled_mobs))
 		RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, .proc/on_set_anchored)
 	M.set_buckled(src)
-	M.setDir(dir)
 	buckled_mobs |= M
 	M.throw_alert("buckled", /atom/movable/screen/alert/buckled)
 	M.set_glide_size(glide_size)
 
-	if(can_move)
-		M.Move(loc)
-	else if (!check_loc && M.loc != loc)
-		M.forceMove(loc)
+	M.Move(loc)
+	M.setDir(dir)
 
 	post_buckle_mob(M)
 
@@ -329,6 +322,8 @@
  * user - The mob unbuckling buckled_mob
  */
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(!(buckled_mob in buckled_mobs) || !user.CanReach(buckled_mob))
+		return
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)

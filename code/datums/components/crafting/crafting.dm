@@ -32,6 +32,7 @@
 					CAT_LIZARD,
 					CAT_ICE,
 					CAT_MEAT,
+					CAT_SEAFOOD,
 					CAT_MISCFOOD,
 					CAT_PASTRY,
 					CAT_PIE,
@@ -43,6 +44,7 @@
 				),
 				CAT_DRINK = CAT_NONE,
 				CAT_CLOTHING = CAT_NONE,
+				CAT_ATMOSPHERIC = CAT_NONE,
 			)
 
 	var/cur_category = CAT_NONE
@@ -116,7 +118,7 @@
 		return
 
 	for(var/atom/movable/AM in range(radius_range, a))
-		if((AM.flags_1 & HOLOGRAM_1)  || (blacklist && (AM.type in blacklist)))
+		if((AM.flags_1 & HOLOGRAM_1) || (blacklist && (AM.type in blacklist)))
 			continue
 		. += AM
 

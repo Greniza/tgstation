@@ -108,13 +108,12 @@
 	directional_vehicle_layers["[dir]"] = layer
 
 /// This is called after the ridden atom is successfully moved and is used to handle icon stuff
-/datum/component/riding/proc/vehicle_moved(datum/source, dir)
+/datum/component/riding/proc/vehicle_moved(datum/source, oldloc, dir, forced)
 	SIGNAL_HANDLER
 
 	var/atom/movable/movable_parent = parent
 	if (isnull(dir))
 		dir = movable_parent.dir
-	movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
 	for (var/m in movable_parent.buckled_mobs)
 		var/mob/buckled_mob = m
 		ride_check(buckled_mob)
@@ -127,7 +126,7 @@
 /datum/component/riding/proc/vehicle_turned(datum/source, _old_dir, new_dir)
 	SIGNAL_HANDLER
 
-	vehicle_moved(source, new_dir)
+	vehicle_moved(source, null, new_dir)
 
 /// Check to see if we have all of the necessary bodyparts and not-falling-over statuses we need to stay onboard
 /datum/component/riding/proc/ride_check(mob/living/rider)
@@ -218,7 +217,8 @@
 /// Every time the driver tries to move, this is called to see if they can actually drive and move the vehicle (via relaymove)
 /datum/component/riding/proc/driver_move(atom/movable/movable_parent, mob/living/user, direction)
 	SIGNAL_HANDLER
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	movable_parent.set_glide_size(DELAY_TO_GLIDE_SIZE(vehicle_move_delay))
 
 /// So we can check all occupants when we bump a door to see if anyone has access
 /datum/component/riding/proc/vehicle_bump(atom/movable/movable_parent, obj/machinery/door/possible_bumped_door)
